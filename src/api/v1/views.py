@@ -38,7 +38,7 @@ async def get_note(data: NoteID):
 	text = await get_note_text(data=data)
 
 	if text is None:
-		return {"response": "failed", "note_final_text": "Such a note does not exist"}
+		return {"response": "failed", "msg": "Such a note does not exist"}
 	
 	return {"response": "ok", "note_final_text": text}
 		
