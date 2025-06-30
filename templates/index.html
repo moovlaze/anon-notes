@@ -93,7 +93,7 @@
 					// После успешного ответа переходим на страницу результата
 					if (data.response === "ok") {
 						document.location.href = "/result/" + data.note_id
-					} else if (data.response === "faild") {
+					} else if (data.response === "failed") {
 						alert(data.msg)
 					}
 				})
