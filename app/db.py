@@ -13,7 +13,7 @@ class Note(Base):
 	secret: Mapped[str]
 	text: Mapped[str]
 
-async_engine = create_async_engine(url="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres", echo=DEBUG)
+async_engine = create_async_engine(url="postgresql+asyncpg://postgres:postgres@db-anon-notes:5432/postgres", echo=DEBUG)
 async_session_maker = async_sessionmaker(bind=async_engine)
 
 async def init_db():
