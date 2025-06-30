@@ -1,6 +1,8 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
+from settings import DEBUG
+
 class Base(DeclarativeBase):
 	pass
 
@@ -11,7 +13,7 @@ class Note(Base):
 	secret: Mapped[str]
 	text: Mapped[str]
 
-async_engine = create_async_engine(url="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres", echo=True)
+async_engine = create_async_engine(url="postgresql+asyncpg://postgres:postgres@localhost:5432/postgres", echo=DEBUG)
 async_session_maker = async_sessionmaker(bind=async_engine)
 
 async def init_db():
