@@ -126,6 +126,8 @@
 				.then(data => {
 					if (data.response === "ok") {
 						document.location.href = "/note_page/" + data.note_final_text
+					} else if (data.response === "failed") {
+						alert(data.msg)
 					}
 				})
 				.catch(error => {
