@@ -9,19 +9,6 @@ from services.notes import create_note_and_return_note_id, get_note_text, get_no
 router = APIRouter()
 
 templates = Jinja2Templates(BASE_DIR / "templates")
-			
-@router.get("/", response_class=HTMLResponse)
-async def get_home_page(request: Request):
-	all_notes = await get_notes()
-
-	return templates.TemplateResponse(
-		request=request,
-		name="index.html",
-		context={
-			"notes_count": all_notes,
-			"page_title" : "Записки"
-		}
-	)
 
 @router.post("/create_note")
 async def create_note(data: NoteSchema):	
@@ -42,6 +29,19 @@ async def get_note(data: NoteID):
 	
 	return {"response": "ok", "note_final_text": text}
 		
+
+@router.get("/", response_class=HTMLResponse)
+async def get_home_page(request: Request):
+	all_notes = await get_notes()
+	return templates.TemplateResponse(
+		request=request,
+		name="index.html",
+		context={
+			"notes_count": all_notes,
+			"page_title" : "Записки"
+		}
+	)
+
 @router.get('/result/{note_id}', response_class=HTMLResponse)
 async def get_note(request: Request,note_id: str):
 	return templates.TemplateResponse(

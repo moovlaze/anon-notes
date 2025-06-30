@@ -1,9 +1,13 @@
+import logging
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, func
 
 from chiper import get_note_id
 from db import async_session_maker, Note
 from api.v1.schemas import NoteSchema, NoteID
+
+log = logging.getLogger(__name__)
 
 async def get_notes():
 	async with async_session_maker() as session:
@@ -20,10 +24,11 @@ async def create_note_and_return_note_id(data: NoteSchema):
 		try:
 			session.add(note)
 			await session.commit()
+			log.info("Entry was create $s", note)
 			return note_id
 		except IntegrityError as e:
 			await session.rollback()
-			print("ERROR:", e)
+			log.exception("Entry alredy exist")
 			return None
 		
 async def get_note_text(data: NoteID):
