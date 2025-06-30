@@ -8,3 +8,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+
+  web-anon-notes:
+    build:
+      context: ..
+    container_name: web-anon-notes
+    ports:
+      - 8000:8000
+    depends_on:
+      - db-anon-notes
+    volumes:
+      - ../app:/app
